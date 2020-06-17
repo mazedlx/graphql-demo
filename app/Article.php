@@ -10,9 +10,9 @@ class Article extends Model
 {
     protected $guarded = [];
 
-    public function user(): BelongsTo
+    public function author(): BelongsTo
     {
-        return $this->belongsto(User::class);
+        return $this->belongsto(User::class, 'user_id', 'id');
     }
 
     public function comments(): HasMany

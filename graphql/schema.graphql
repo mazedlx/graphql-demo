@@ -4,32 +4,21 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
-
-type Query {
-    me: User @auth
-    users: [User!]! @paginate(defaultCount: 10)
-    user(id: ID @eq): User @find
-    articles: [Article!]! @paginate(defaultCount: 10)
-    article(id: ID @eq): Article @find
-    comments: [Comment!]! @paginate(defaultCount: 10)
-    comment(id: ID @eq): Comment @find
-}
-
 type User {
     id: ID!
     name: String!
     email: String!
     created_at: DateTime!
     updated_at: DateTime!
-    articles: [Article!]
+    articles: [Article!]! @hasMany
 }
 
 type Article {
     id: ID!
     title: String!
     body: String!
-    author: User
-    comments: [Comment]
+    author: User! @belongsTo
+    comments: [Comment!]! @hasMany
     created_at: DateTime!
     updated_at: DateTime!
 }
@@ -38,10 +27,19 @@ type Comment {
     id: ID!
     title: String!
     body: String!
-    user: User! 
-    article: Article!
+    user: User! @belongsTo
+    article: Article! @belongsTo
     created_at: DateTime!
     updated_at: DateTime!
+}
+
+type Query {
+    users: [User!]! @paginate(defaultCount: 10)
+    user(id: ID @eq): User @find
+    articles: [Article!]! @paginate(defaultCount: 10)
+    article(id: ID @eq): Article @find
+    comments: [Comment!]! @paginate(defaultCount: 10)
+    comment(id: ID @eq): Comment @find
 }
 
 type Mutation {
