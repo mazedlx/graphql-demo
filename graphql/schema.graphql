@@ -4,6 +4,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A date string with format `Y-m-d`, e.g. `2011-05-23`."
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
+"This would be an awesome place for an awesome documentation."
 type User {
     id: ID!
     name: String!
@@ -13,6 +14,7 @@ type User {
     articles: [Article!]! @hasMany
 }
 
+"This is an article. Duh."
 type Article {
     id: ID!
     title: String!
@@ -23,6 +25,7 @@ type Article {
     updated_at: DateTime!
 }
 
+"And a comment."
 type Comment {
     id: ID!
     title: String!
@@ -33,6 +36,7 @@ type Comment {
     updated_at: DateTime!
 }
 
+"Here be dragons. Or queries."
 type Query {
     users: [User!]! @paginate(defaultCount: 10)
     user(id: ID @eq): User @find
@@ -42,6 +46,7 @@ type Query {
     comment(id: ID @eq): Comment @find
 }
 
+"And mutations."
 type Mutation {
     createUser(name: String!, email: String!, password: String! @bcrypt): User! @create
     createArticle(title: String!, body: String!, user_id: ID!): Article! @create
